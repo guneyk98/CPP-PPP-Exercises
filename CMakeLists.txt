@@ -27,3 +27,4 @@ if(EXISTS "${CMAKE_BINARY_DIR}/CMakeFiles/__cmake_cxx23.dir/std.ifc")
 endif()
 
 add_subdirectory ("Ch02")
+add_subdirectory ("Ch03")
