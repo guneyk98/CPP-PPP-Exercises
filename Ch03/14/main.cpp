@@ -1,6 +1,5 @@
 import std;
 
-
 std::vector<int> primes;
 
 bool is_prime(int num)
