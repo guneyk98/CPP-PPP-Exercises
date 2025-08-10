@@ -1,4 +1,4 @@
-﻿cmake_minimum_required (VERSION 3.30 FATAL_ERROR)
+﻿cmake_minimum_required(VERSION 3.30 FATAL_ERROR)
 set(CMAKE_CXX_STANDARD 23)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 set(CMAKE_CXX_EXTENSIONS OFF)
@@ -19,12 +19,12 @@ else()
 	set(CMAKE_CXX_MODULE_STD ON)
 endif()
 
-project ("CPP-PPP-Exercises" LANGUAGES CXX)
+project("CPP-PPP-Exercises" LANGUAGES CXX)
 
 #for intellisense to work with Visual studio (only with Ninja generator)
 if(EXISTS "${CMAKE_BINARY_DIR}/CMakeFiles/__cmake_cxx23.dir/std.ifc")
 	add_compile_options(/reference "${CMAKE_BINARY_DIR}/CMakeFiles/__cmake_cxx23.dir/std.ifc")
 endif()
 
-add_subdirectory ("Ch02")
-add_subdirectory ("Ch03")
+add_subdirectory("Ch02" EXCLUDE_FROM_ALL)
+add_subdirectory("Ch03" EXCLUDE_FROM_ALL)
