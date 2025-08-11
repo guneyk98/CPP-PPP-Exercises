@@ -28,3 +28,4 @@ endif()
 
 add_subdirectory("Ch02" EXCLUDE_FROM_ALL)
 add_subdirectory("Ch03" EXCLUDE_FROM_ALL)
+add_subdirectory("Ch04" EXCLUDE_FROM_ALL)
