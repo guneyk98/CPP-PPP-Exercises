@@ -29,7 +29,6 @@ private:
 	int d;
 };
 
-
 bool is_date(Year y, Month m, int d);
 int days_in_month(Month m);
 
