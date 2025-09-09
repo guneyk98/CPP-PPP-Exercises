@@ -19,9 +19,6 @@ int main()
 		d2.add_day(365);
 		std::cout << "365 days after " << today << " : " << d2 << '\n';
 	}
-	catch (Chrono::Date::Invalid&) {
-		std::cerr << "Invalid date\n";
-	}
 	catch (std::exception& e) {
 		std::cerr << e.what() << '\n';
 		return 1;
