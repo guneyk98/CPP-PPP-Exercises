@@ -31,7 +31,7 @@ private:
 
 bool is_date(Year y, Month m, int d);
 int days_in_month(Month m, Year y);
-export bool leapyear(Year y);
+bool leapyear(Year y);
 
 std::ostream& operator<<(std::ostream& os, const Date& d);
 bool operator==(const Date& lhs, const Date& rhs);
