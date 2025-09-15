@@ -21,6 +21,7 @@ export Rational operator-(const Rational& lhs, const Rational& rhs);
 export Rational operator*(const Rational& lhs, const Rational& rhs);
 export Rational operator/(const Rational& lhs, const Rational& rhs);
 export bool operator==(const Rational& lhs, const Rational& rhs);
+export bool operator!=(const Rational& lhs, const Rational& rhs);
 export std::ostream& operator<<(std::ostream& os, const Rational& r);
 
 //helper functions for detecting overflow/underflow
@@ -101,6 +102,11 @@ bool operator==(const Rational& lhs, const Rational& rhs)
 {
 	//both objects should always be in simplified form, due to simplify() call in constructor
 	return lhs.numer() == rhs.numer() && lhs.denom() == rhs.denom();
+}
+
+bool operator!=(const Rational& lhs, const Rational& rhs)
+{
+	return !(lhs==rhs);
 }
 
 std::ostream& operator<<(std::ostream& os, const Rational& r)
