@@ -52,7 +52,9 @@ void Date::add_day(int n)
 
 	while (n+d > days_in_month(m, y)) {
 		n -= days_in_month(m, y);
-		add_month(1);
+		if (m == Month::dec)
+			++y.y;
+		m = Month{1 + (static_cast<int>(m))%12};
 	}
 	d += n;
 }
@@ -62,15 +64,21 @@ void Date::add_month(int n)
 	if (n < 0)
 		throw std::runtime_error{"add_month() doesn't take in negative values"};
 
-	while (n+static_cast<int>(m) > 12) {
-		n -= 12;
-		add_year(1);
-	}
+	y.y += (n+static_cast<int>(m)-1)/12;
 	m = Month{1 + (n+static_cast<int>(m)-1)%12};
+
+	const int dim = days_in_month(m, y);
+	if (d > dim) {
+		d -= dim;
+		add_month(1);
+	}
 }
 
 void Date::add_year(int n)
 {
+	if (n < 0)
+		throw std::runtime_error{"add_year() doesn't take in negative values"};
+
 	if (m == Month::feb && leapyear(y)) {
 		m = Month::mar;
 		d = 1;

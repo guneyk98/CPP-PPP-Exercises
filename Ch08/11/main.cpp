@@ -5,6 +5,11 @@ using namespace Chrono;
 int main()
 {
 	try {
+		Chrono::Date d0{Year{2020}, Month::feb, 29};
+		std::cout << d0 << '\n';
+		d0.add_day(365);
+		std::cout << d0 << '\n';
+
 		Chrono::Date d1{Year{2025}, Month::sep, 9};
 		Chrono::Date d2{Year{2025}, Month::sep, 12};
 		Chrono::Date d3{Year{2025}, Month::sep, 13};

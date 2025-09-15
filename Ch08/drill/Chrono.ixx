@@ -74,6 +74,9 @@ void Date::add_month(int n)
 
 void Date::add_year(int n)
 {
+	if (n < 0)
+		throw std::runtime_error{"add_year() doesn't take in negative values"};
+
 	y.y += n; //implement leap years in future exercise
 }
 
