@@ -109,13 +109,11 @@ bool can_represent_as_long(double value)
 {
 	//check range
 	if (value < static_cast<double>(std::numeric_limits<long>::min()) ||
-		value > static_cast<double>(std::numeric_limits<long>::max())) {
+		value > static_cast<double>(std::numeric_limits<long>::max()))
 		return false;
-	}
 	//check if integer
-	if (std::floor(value) != value) {
+	if (std::floor(value) != value)
 		return false;
-	}
 	return true;
 }
 
