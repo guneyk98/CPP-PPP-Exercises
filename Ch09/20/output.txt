@@ -1,0 +1,6 @@
+01 February  1992 01 64.00
+02 February  1992 02 65.20
+01 February  2000 01 68.00
+02 February  2000 03 66.66
+15 December  2000 14 -8.80
+15 December  2000 15 -9.20
