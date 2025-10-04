@@ -52,7 +52,7 @@ int main()
 std::string& modify_str(std::string& str)
 {
 	for (size_t i = 0; i < str.size(); ++i) {
-		str[i] = std::tolower(static_cast<unsigned char>(str[i]));
+		str[i] = to_lower(str[i]);
 
 		if (str[i] == '"') {
 			//look for end of quote
@@ -86,12 +86,12 @@ bool is_punct(char ch)
 
 char to_lower(char ch)
 {
-	return std::tolower(static_cast<unsigned char>(ch));
+	return static_cast<char>(std::tolower(static_cast<unsigned char>(ch)));
 }
 
 bool is_alpha(char ch)
 {
-	return std::isalpha(static_cast<unsigned char>(ch));
+	return static_cast<char>(std::isalpha(static_cast<unsigned char>(ch)));
 }
 
 void find_word(const std::string& str, size_t idx, size_t& start_idx, size_t& size)
