@@ -34,6 +34,53 @@ if(EXISTS "${CMAKE_BINARY_DIR}/CMakeFiles/__cmake_cxx23.dir/std.ifc")
 	add_compile_options(/reference "${CMAKE_BINARY_DIR}/CMakeFiles/__cmake_cxx23.dir/std.ifc")
 endif()
 
+#PPP library
+set(PPP_SOURCES
+	PPP/Colormap.cpp
+	PPP/Graph.cpp
+	PPP/GUI.cpp
+	PPP/Simple_window.cpp
+	PPP/Window.cpp
+)
+set(PPP_PRIV_HEADERS
+	PPP/GUI_private.h
+	PPP/Image_private.h
+)
+set(PPP_PUB_HEADERS
+	PPP/Graph.h
+	PPP/GUI.h
+	PPP/Point.h
+	PPP/Simple_window.h
+	PPP/Window.h
+	PPP/std_lib_facilities.h
+)
+add_library(PPP)
+target_sources(PPP
+	PRIVATE
+		${PPP_SOURCES}
+	PRIVATE
+		FILE_SET priv_headers
+		TYPE HEADERS
+		FILES
+			${PPP_PRIV_HEADERS}
+	PUBLIC
+		FILE_SET pub_headers
+		TYPE HEADERS
+		BASE_DIRS "."
+		FILES
+			${PPP_PUB_HEADERS}
+)
+set_target_properties(PPP PROPERTIES
+	AUTOMOC ON
+	AUTOUIC ON
+	AUTORCC ON
+)
+target_include_directories(PPP PUBLIC .)
+#Qt
+find_package(Qt6 REQUIRED COMPONENTS Widgets)
+target_link_libraries(PPP PRIVATE Qt6::Widgets)
+
+
 add_subdirectory("Ch02" EXCLUDE_FROM_ALL)
 add_subdirectory("Ch03" EXCLUDE_FROM_ALL)
 add_subdirectory("Ch04" EXCLUDE_FROM_ALL)
@@ -42,3 +89,4 @@ add_subdirectory("Ch06" EXCLUDE_FROM_ALL)
 add_subdirectory("Ch07" EXCLUDE_FROM_ALL)
 add_subdirectory("Ch08" EXCLUDE_FROM_ALL)
 add_subdirectory("Ch09" EXCLUDE_FROM_ALL)
+add_subdirectory("Ch10" EXCLUDE_FROM_ALL)
