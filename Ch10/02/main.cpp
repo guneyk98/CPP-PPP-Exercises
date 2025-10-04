@@ -8,7 +8,7 @@ int main()
 	constexpr int win_w = 600, win_h = 400;
 
 	Application app;
-	Simple_window win(Point{win_x, win_y}, win_w, win_h, "Ch10 Ex01");
+	Simple_window win(Point{win_x, win_y}, win_w, win_h, "Ch10 Ex02");
 	
 	//window is dark by default (OS dark-mode?), fill it white
 	Rectangle background_fill{Point{0, 0}, win_w, win_h};
