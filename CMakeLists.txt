@@ -21,6 +21,14 @@ endif()
 
 project("CPP-PPP-Exercises" LANGUAGES CXX)
 
+if(MSVC)
+  add_compile_options(
+    /EHsc
+    /W4
+    /WX
+  )
+endif()
+
 #for intellisense to work with Visual studio (only with Ninja generator)
 if(EXISTS "${CMAKE_BINARY_DIR}/CMakeFiles/__cmake_cxx23.dir/std.ifc")
 	add_compile_options(/reference "${CMAKE_BINARY_DIR}/CMakeFiles/__cmake_cxx23.dir/std.ifc")
