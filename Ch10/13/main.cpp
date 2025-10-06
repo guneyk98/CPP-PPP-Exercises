@@ -53,7 +53,7 @@ int main()
 	for (size_t i = 0; i < num_points; ++i) {
 		size_t j = (i+1) % num_points;
 		Line_redrawable* line = new Line_redrawable(points[i], points[j]);
-		line->set_color(i%14);
+		line->set_color(i%13 == 4 ? 13 : i%13); //all colours but white
 		win.attach(*line);
 		lines.push_back(line);
 	}
