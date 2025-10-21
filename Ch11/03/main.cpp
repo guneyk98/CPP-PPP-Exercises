@@ -2,6 +2,7 @@
 #include "PPP/Graph.h"
 #include <cmath>
 #include <numbers>
+
 using namespace Graph_lib;
 constexpr double pi = numbers::pi_v<double>;
 
@@ -28,7 +29,7 @@ Point nw(const Ellipse& e);
 int main()
 {
 	Application app;
-	Simple_window win(Point{50, 50}, 800, 800, "Ch11 Ex02");
+	Simple_window win(Point{50, 50}, 800, 800, "Ch11 Ex03");
 	//window is dark by default (OS dark-mode?), fill it white
 	Rectangle background_fill{Point{0, 0}, win.x_max(), win.y_max()};
 	background_fill.set_fill_color(Color::white);
