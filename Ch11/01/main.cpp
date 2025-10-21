@@ -49,13 +49,13 @@ Arrow::Arrow(Point p1, Point p2, double len, double theta)
 	const double sintheta = std::sin(theta);
 
 	//2D rotation matrix
-	const double x23 = len*(x21*costheta - y21*sintheta);
-	const double y23 = len*(x21*sintheta + y21*costheta);
-	const double x24 = len*(x21*costheta + y21*sintheta);
-	const double y24 = len*(-x21*sintheta + y21*costheta);
+	const int x23 = std::lround(len*(x21*costheta - y21*sintheta));
+	const int y23 = std::lround(len*(x21*sintheta + y21*costheta));
+	const int x24 = std::lround(len*(x21*costheta + y21*sintheta));
+	const int y24 = std::lround(len*(-x21*sintheta + y21*costheta));
 
-	add({p2.x+static_cast<int>(x23), p2.y+static_cast<int>(y23)});
-	add({p2.x+static_cast<int>(x24), p2.y+static_cast<int>(y24)});
+	add({p2.x+x23, p2.y+y23});
+	add({p2.x+x24, p2.y+y24});
 }
 
 void Arrow::draw_specifics(Painter& painter) const
