@@ -56,13 +56,11 @@ Point n(const Rectangle& r)
 Point s(const Rectangle& r)
 {
 	return {r.point(0).x + r.width()/2, r.point(0).y + r.height()};
-
 }
 
 Point e(const Rectangle& r)
 {
 	return {r.point(0).x + r.width(), r.point(0).y + r.height()/2};
-
 }
 
 Point w(const Rectangle& r)
