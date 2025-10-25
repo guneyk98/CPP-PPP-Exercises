@@ -44,7 +44,7 @@ int main()
 		const int b = colour_arr[c_idx][2];
 
 		for (int i = 0; i < num_cells_x; ++i) {
-			const double t = static_cast<double>(i+1)/(num_cells_x-1+1); //1/n -> 1
+			const double t = static_cast<double>(i)/(num_cells_x-1);
 			const double curved = std::pow(t, 1.5); //concentrate colours at lower values
 
 			rects.push_back(make_unique<Rectangle>(Point{i*cell_w, j*cell_h}, cell_w, cell_h));
