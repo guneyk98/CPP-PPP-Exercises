@@ -30,8 +30,8 @@ int main()
 Regular_hexagon::Regular_hexagon(Point centre, double radius)
 {
 	for (int i = 0; i < 6; ++i) {
-		const int x = centre.x + static_cast<int>(radius * std::cos(i*pi/3));
-		const int y = centre.y + static_cast<int>(radius * std::sin(i*pi/3));
+		const int x = centre.x + std::lround(radius * std::cos(i*pi/3));
+		const int y = centre.y + std::lround(radius * std::sin(i*pi/3));
 		add({x,	y});
 	}
 }
