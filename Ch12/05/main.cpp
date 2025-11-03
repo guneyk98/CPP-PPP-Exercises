@@ -42,12 +42,12 @@ Striped_rectangle::Striped_rectangle(Point xy, int ww, int hh)
 void Striped_rectangle::draw_specifics(Painter& painter) const
 {
 	//draw the lines first so that the rectangle is drawn on top
-	painter.set_color(hlines.color());
 	painter.set_line_style(hlines.style());
+	painter.set_color(hlines.color());
 	hlines.draw_specifics(painter);
 
-	painter.set_color(this->color());
 	painter.set_line_style(this->style());
+	painter.set_color(this->color());
 	Rectangle::draw_specifics(painter);
 }
 
