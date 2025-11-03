@@ -10,7 +10,8 @@ struct Smiley : Circle {
 		r_eye{{p.x + rr/3, p.y - rr/4}, rr/8},
 		mouth{p, rr/2, rr/2, 225, 90} {
 	}
-	void draw_specifics(Painter& painter) const override;
+	virtual void move(int dx, int dy) override;
+	virtual void draw_specifics(Painter& painter) const override;
 private:
 	Circle l_eye;
 	Circle r_eye;
@@ -24,7 +25,8 @@ struct Frowny : Circle {
 		r_eye{{p.x + rr/3, p.y - rr/4}, rr/8},
 		mouth{{p.x, p.y + (3*rr)/4}, rr/2, rr/2, 45, 90} {
 	}
-	void draw_specifics(Painter& painter) const override;
+	virtual void move(int dx, int dy) override;
+	virtual void draw_specifics(Painter& painter) const override;
 private:
 	Circle l_eye;
 	Circle r_eye;
@@ -43,6 +45,7 @@ int main()
 	Point centre{win.x_max()/2, win.y_max()/2};
 
 	Smiley smiley{centre, 250};
+	smiley.move(100, 100);
 	win.attach(smiley);
 	win.wait_for_button();
 
@@ -52,12 +55,30 @@ int main()
 	win.wait_for_button();
 }
 
+void Smiley::move(int dx, int dy)
+{
+	Circle::move(dx, dy);
+	l_eye.move(dx, dy);
+	r_eye.move(dx, dy);
+	mouth.move(dx, dy);
+	redraw();
+}
+
 void Smiley::draw_specifics(Painter& painter) const
 {
 	Circle::draw_specifics(painter);
 	l_eye.draw_specifics(painter);
 	r_eye.draw_specifics(painter);
 	mouth.draw_specifics(painter);
+}
+
+void Frowny::move(int dx, int dy)
+{
+	Circle::move(dx, dy);
+	l_eye.move(dx, dy);
+	r_eye.move(dx, dy);
+	mouth.move(dx, dy);
+	redraw();
 }
 
 void Frowny::draw_specifics(Painter& painter) const
