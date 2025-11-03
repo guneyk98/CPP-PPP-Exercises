@@ -32,17 +32,23 @@ Striped_rectangle::Striped_rectangle(Point xy, int ww, int hh)
 	: Rectangle{xy, ww, hh}
 {
 	hlines.set_color(Color::invisible);
-	const int x1 = xy.x+1;
-	const int x2 = xy.x + ww-1;
-	for (int y = xy.y+1; y < xy.y + hh; y+=2) {
+	const int x1 = xy.x;
+	const int x2 = xy.x + ww;
+	for (int y = xy.y; y < xy.y + hh; y+=2) {
 		hlines.add({x1, y}, {x2, y});
 	}
 }
 
 void Striped_rectangle::draw_specifics(Painter& painter) const
 {
+	//draw the lines first so that the rectangle is drawn on top
+	painter.set_color(hlines.color());
+	painter.set_line_style(hlines.style());
+	hlines.draw_specifics(painter);
+
+	painter.set_color(this->color());
+	painter.set_line_style(this->style());
 	Rectangle::draw_specifics(painter);
-	hlines.draw(painter); //needs to be draw() for the lines to use their own colour
 }
 
 void Striped_rectangle::move(int dx, int dy)
