@@ -2,10 +2,10 @@
 #include "PPP/Graph.h"
 
 struct Box : Shape {
-	Box(Point p, int ww, int hh, int corner_r);
+	Box(Point p, int w, int h, int corner_r);
 	void draw_specifics(Painter& painter) const override;
+	virtual void move(int dx, int dy) override;
 private:
-	int w, h;
 	Vector_ref<Arc> arcs;
 	Vector_ref<Pie> corners;
 };
@@ -18,6 +18,7 @@ struct Pseudo_window : Box {
 		button_marks{"-OX", {{p.x+ww-80, p.y+17}, {p.x+ww-50, p.y+14}, {p.x+ww-20, p.y+14}}} {
 	}
 	void draw_specifics(Painter& painter) const override;
+	virtual void move(int dx, int dy) override;
 private:
 	Text label;
 	Line top_bar;
@@ -37,9 +38,11 @@ int main()
 	pw.set_fill_color(Color::red);
 	win.attach(pw);
 	win.wait_for_button();
+	pw.move(50, 100);
+	win.wait_for_button();
 }
 
-Box::Box(Point p, int ww, int hh, int corner_r)	: w{ww}, h{hh}
+Box::Box(Point p, int w, int h, int corner_r)
 {
 	const int r = corner_r;
 
@@ -90,10 +93,29 @@ void Box::draw_specifics(Painter& painter) const
 		arcs[i].draw_specifics(painter);
 }
 
+void Box::move(int dx, int dy)
+{
+	Shape::move(dx, dy);
+	for (int i = 0; i < arcs.size(); ++i) {
+		arcs[i].move(dx, dy);
+		corners[i].move(dx, dy);
+	}
+	redraw();
+}
+
 void Pseudo_window::draw_specifics(Painter& painter) const
 {
 	Box::draw_specifics(painter);
 	label.draw_specifics(painter);
 	top_bar.draw_specifics(painter);
 	button_marks.draw_specifics(painter);
+}
+
+void Pseudo_window::move(int dx, int dy)
+{
+	Box::move(dx, dy);
+	label.move(dx, dy);
+	top_bar.move(dx, dy);
+	button_marks.move(dx, dy);
+	redraw();
 }

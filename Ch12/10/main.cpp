@@ -2,10 +2,10 @@
 #include "PPP/Graph.h"
 
 struct Box : Shape {
-	Box(Point p, int ww, int hh, int corner_r);
+	Box(Point p, int w, int h, int corner_r);
 	void draw_specifics(Painter& painter) const override;
+	virtual void move(int dx, int dy) override;
 private:
-	int w, h;
 	Vector_ref<Arc> arcs;
 	Vector_ref<Pie> corners;
 };
@@ -23,9 +23,11 @@ int main()
 	r.set_fill_color(Color::red);
 	win.attach(r);
 	win.wait_for_button();
+	r.move(50, 100);
+	win.wait_for_button();
 }
 
-Box::Box(Point p, int ww, int hh, int corner_r) : w{ww}, h{hh}
+Box::Box(Point p, int w, int h, int corner_r)
 {
 	const int r = corner_r;
 
@@ -74,4 +76,14 @@ void Box::draw_specifics(Painter& painter) const
 		painter.draw_line(point(i-1), point(i));
 	for (int i = 0; i < corners.size(); ++i)
 		arcs[i].draw_specifics(painter);
+}
+
+void Box::move(int dx, int dy)
+{
+	Shape::move(dx, dy);
+	for (int i = 0; i < arcs.size(); ++i) {
+		arcs[i].move(dx, dy);
+		corners[i].move(dx, dy);
+	}
+	redraw();
 }

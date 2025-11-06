@@ -2,10 +2,10 @@
 #include "PPP/Graph.h"
 
 struct Rounded : Shape {
-	Rounded(Point p, int ww, int hh, int corner_r);
+	Rounded(Point p, int w, int h, int corner_r);
 	void draw_specifics(Painter& painter) const override;
+	virtual void move(int dx, int dy) override;
 private:
-	int w, h;
 	Vector_ref<Arc> arcs;
 	Lines lines;
 };
@@ -22,9 +22,11 @@ int main()
 	Rounded r{{50, 50}, 600, 300, 30};
 	win.attach(r);
 	win.wait_for_button();
+	r.move(50, 100);
+	win.wait_for_button();
 }
 
-Rounded::Rounded(Point p, int ww, int hh, int corner_r)	: w{ww}, h{hh}
+Rounded::Rounded(Point p, int w, int h, int corner_r)
 {
 	const int r = corner_r;
 
@@ -47,8 +49,15 @@ Rounded::Rounded(Point p, int ww, int hh, int corner_r)	: w{ww}, h{hh}
 
 void Rounded::draw_specifics(Painter& painter) const
 {
-	for (int i = 0; i < arcs.size(); ++i) {
+	for (int i = 0; i < arcs.size(); ++i)
 		arcs[i].draw_specifics(painter);
-	}
 	lines.draw_specifics(painter);
+}
+
+void Rounded::move(int dx, int dy)
+{
+	for (int i = 0; i < arcs.size(); ++i)
+		arcs[i].move(dx, dy);
+	lines.move(dx, dy);
+	redraw();
 }
