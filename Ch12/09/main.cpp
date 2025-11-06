@@ -5,7 +5,7 @@ struct Rounded : Shape {
 	Rounded(Point p, int ww, int hh, int corner_r);
 	void draw_specifics(Painter& painter) const override;
 private:
-	Rectangle rect;
+	int w, h;
 	Vector_ref<Arc> arcs;
 	Lines lines;
 };
@@ -24,11 +24,8 @@ int main()
 	win.wait_for_button();
 }
 
-Rounded::Rounded(Point p, int ww, int hh, int corner_r)
-	: rect{p, ww, hh}
+Rounded::Rounded(Point p, int ww, int hh, int corner_r)	: w{ww}, h{hh}
 {
-	const int w = rect.width();
-	const int h = rect.height();
 	const int r = corner_r;
 
 	const std::array<Point, 4> arc_pos{

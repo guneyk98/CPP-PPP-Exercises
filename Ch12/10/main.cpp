@@ -5,7 +5,7 @@ struct Box : Shape {
 	Box(Point p, int ww, int hh, int corner_r);
 	void draw_specifics(Painter& painter) const override;
 private:
-	Rectangle rect;
+	int w, h;
 	Vector_ref<Arc> arcs;
 	Vector_ref<Pie> corners;
 };
@@ -25,11 +25,8 @@ int main()
 	win.wait_for_button();
 }
 
-Box::Box(Point p, int ww, int hh, int corner_r)
-	: rect{p, ww, hh}
+Box::Box(Point p, int ww, int hh, int corner_r) : w{ww}, h{hh}
 {
-	const int w = rect.width();
-	const int h = rect.height();
 	const int r = corner_r;
 
 	//centre points for arcs and corners
