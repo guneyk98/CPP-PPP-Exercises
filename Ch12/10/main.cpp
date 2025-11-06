@@ -2,7 +2,7 @@
 #include "PPP/Graph.h"
 
 struct Box : Shape {
-	Box(Point p, int ww, int hh);
+	Box(Point p, int ww, int hh, int corner_r);
 	void draw_specifics(Painter& painter) const override;
 private:
 	Rectangle rect;
@@ -19,59 +19,50 @@ int main()
 	background_fill.set_fill_color(Color::white);
 	win.attach(background_fill);
 
-	Point c{win.x_max()/2, win.y_max()/2};
-	int box_w = 300;
-	int box_h = 200;
-
-	Box r{{c.x - box_w/2, c.y - box_h/2}, box_w, box_h};
+	Box r{{50, 50}, 600, 300, 30};
 	r.set_fill_color(Color::red);
 	win.attach(r);
 	win.wait_for_button();
 }
 
-Box::Box(Point p, int ww, int hh)
+Box::Box(Point p, int ww, int hh, int corner_r)
 	: rect{p, ww, hh}
 {
 	const int w = rect.width();
 	const int h = rect.height();
+	const int r = corner_r;
 
+	//centre points for arcs and corners
 	const std::array<Point, 4> arc_pos{
-		Point{p.x + w/4,	 p.y + h/4},		//top left
-		Point{p.x + (3*w)/4, p.y + h/4 },		//top right
-		Point{p.x + (3*w)/4, p.y + (3*h)/4},	//bottom right
-		Point{p.x + w/4,	 p.y + (3*h)/4}		//bottom left
+		Point{p.x + r,	 p.y + r},		//top left
+		Point{p.x + w-r, p.y + r},		//top right
+		Point{p.x + w-r, p.y + h-r},	//bottom right
+		Point{p.x + r,	 p.y + h-r}		//bottom left
 	};
 	constexpr std::array<int, 4> arc_angle{90, 0, 270, 180};
-	
+
 	for (int i = 0; i < 4; ++i) {
-		arcs.push_back(make_unique<Arc>(arc_pos[i], w/4, h/4, arc_angle[i], 90));
-		corners.push_back(make_unique<Pie>(arc_pos[i], w/4, h/4, arc_angle[i], 90));
+		arcs.push_back(make_unique<Arc>(arc_pos[i], r, r, arc_angle[i], 90));
+		corners.push_back(make_unique<Pie>(arc_pos[i], r, r, arc_angle[i], 90));
 	}
 
 	//these points make a plus shaped polygon
-	add({p.x + w/4, p.y + h/4});
-
-	add({p.x + w/4, p.y});
-	add({p.x + (3*w)/4, p.y});
-
-	add({p.x + (3*w/4), p.y + h/4});
-
-	add({p.x + w, p.y + h/4});
-	add({p.x + w, p.y + (3*h)/4});
-	
-	add({p.x + (3*w/4), p.y + (3*h)/4});
-
-	add({p.x + (3*w)/4, p.y + h});
-	add({p.x + w/4, p.y + h});
-	
-	add({p.x + w/4, p.y + (3*h)/4});
-
-	add({p.x, p.y + (3*h)/4});
-	add({p.x, p.y + h/4});
+	add({p.x + r, p.y + r});
+	add({p.x + r, p.y});
+	add({p.x + w-r, p.y});
+	add({p.x + w-r, p.y + r});
+	add({p.x + w, p.y + r});
+	add({p.x + w, p.y + h-r});
+	add({p.x + w-r, p.y + h-r});
+	add({p.x + w-r, p.y + h});
+	add({p.x + r, p.y + h});
+	add({p.x + r, p.y + h-r});
+	add({p.x, p.y + h-r});
+	add({p.x, p.y + r});
 }
 
 void Box::draw_specifics(Painter& painter) const
-{	
+{
 	//draw filled shape without borders
 	painter.set_line_style(style());
 	painter.set_color(Color::invisible);
